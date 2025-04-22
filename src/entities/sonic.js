@@ -8,8 +8,11 @@ export function makeSonic(pos) {
     k.area(),
     k.anchor("center"),
     k.pos(pos),
+    k.timer(),
     k.body({ jumpForce: 1700 }),
     {
+      fatCounter: 3,
+      isInvincible: false,
       ringCollectUI: null,
       setControls() {
         k.onButtonPress("jump", () => {

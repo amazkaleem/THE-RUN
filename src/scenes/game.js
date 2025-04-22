@@ -43,54 +43,80 @@ export default function game() {
     k.text("SCORE : 0", { font: "mania", size: 72 }),
     k.pos(20, 20),
   ]);
+
   let score = 0;
   let scoreMultiplier = 0;
+  
 
   sonic.onCollide("enemy", (enemy) => {
+    // First check: if sonic is already invincible, skip handling the collision
+    if (sonic.isInvincible) return;
+    
+    // Normal collision logic (when not invincible)
     if (!sonic.isGrounded()) {
+      // Your jumping attack code
       k.play("destroy", { volume: 0.5 });
-      k.play("hyper-ring", { volume: 0.5 });
-      k.destroy(enemy);
-      sonic.play("jump");
-      sonic.jump();
-      scoreMultiplier += 1;
-      score += 10 * scoreMultiplier;
-      scoreText.text = `SCORE : ${score}`;
-      if (scoreMultiplier === 1)
-        sonic.ringCollectUI.text = `+${10 * scoreMultiplier}`;
-      if (scoreMultiplier > 1) sonic.ringCollectUI.text = `x${scoreMultiplier}`;
-      k.wait(1, () => {
-        sonic.ringCollectUI.text = "";
-      });
+        k.play("hyper-ring", { volume: 0.5 });
+        k.destroy(enemy);
+        sonic.play("jump");
+        sonic.jump();
+        scoreMultiplier += 1;
+        score += 10 * scoreMultiplier;
+        scoreText.text = `SCORE : ${score}`;
+        if (scoreMultiplier === 1)
+          sonic.ringCollectUI.text = `+${10 * scoreMultiplier}`;
+        if (scoreMultiplier > 1) sonic.ringCollectUI.text = `x${scoreMultiplier}`;
+        k.wait(1, () => {
+          sonic.ringCollectUI.text = "";
+        });
       return;
     }
-
+    
+    // Getting hit logic
     k.play("hurt", { volume: 0.5 });
     k.destroy(enemy);
-
-    const knockbackX = -500; // negative = leftward
-    sonic.vel.x = knockbackX; // apply horizontal knockback
-
-    // ❗ stop him after 0.2 seconds
-    k.wait(0.2, () => {
-      sonic.vel.x = 0;  // stop horizontal motion
+    
+    // Make sonic invincible and transparent
+    sonic.isInvincible = true;
+    sonic.opacity = 0.5;
+    
+    // Knockback effect
+    let knockbackDirection = -1;
+    sonic.tween(
+      sonic.pos.x,
+      sonic.pos.x + (knockbackDirection * 50),
+      0.75,
+      (value) => sonic.pos.x = value
+    );
+    
+    // Reset after animation completes
+    k.wait(0.75, () => {
+      sonic.opacity = 1;
+      sonic.isInvincible = false;
+      console.log(sonic.pos.x);
+      k.wait(10, () => {
+        sonic.opacity = 0.5;
+        sonic.isInvincible = true;
+        knockbackDirection = 1;
+        sonic.tween(
+          sonic.pos.x,
+          sonic.pos.x + (knockbackDirection * 50),
+          0.75,
+          (value) => sonic.pos.x = value
+        );
+        k.wait(0.75, () => {
+          sonic.opacity = 1;
+          sonic.isInvincible = false;
+          console.log(sonic.pos.x);
+        });
+      });
     });
-
-    // 🔻 Reduce jump height temporarily
-    sonic.jumpForce = 1400; // lowered jump
-
-    // 🕒 Restore after delay
-    k.wait(10, () => {
-      sonic.jumpForce = 1700;
-      sonic.vel.x = 200;
-      k.wait(0.2, () => {sonic.vel.x = 0;});
-    });
-      
   });
+
 
   let gameSpeed = 300;
   k.loop(1, () => {
-    gameSpeed += 50;
+    gameSpeed += 25;
   });
 
   const spawnMotoBug = () => {
