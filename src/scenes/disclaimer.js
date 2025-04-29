@@ -4,16 +4,16 @@ export default function disclaimer() {
   k.add([
     k.text(
       `
-        Sonic is owned by SEGA.
-        This is a fangame made by JSLegendDev using assets from Sonic Mania
+        The main title music is thanks to the wonderful work of @Eric Matyas
+        Follow 'https://soundimage.org/sample-page/' for more music and SFX
       `,
-      { font: "mania", size: 32 }
+      { font: "brokecouch", size: 32 }
     ),
   ]);
 
   k.add([
     k.text("Press Space/Click/Touch to Start The Game", {
-      font: "mania",
+      font: "brokecouch",
       size: 64,
     }),
     k.anchor("center"),

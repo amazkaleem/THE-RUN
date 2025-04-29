@@ -11,6 +11,9 @@ const k = kaplay({
       keyboard: ["space"],
       mouse: "left",
     },
+    skip:{
+      keyboard: ["s"],
+    }
   },
   touchToMouse: true,
   debugKey: "d",
