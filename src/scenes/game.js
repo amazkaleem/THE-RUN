@@ -3,7 +3,7 @@ import { makeSonic } from "../entities/sonic";
 import { makeMotobug } from "../entities/motobug";
 
 export default function game() {
-  let citySfx = null;
+  let citySfx;
   // console.log("The value of isMute has been transferred over to game scene as", k.isMute);
   if (k.isMute === false) {
     citySfx = k.play("cuddle", { volume: 0.8, loop: true });
@@ -161,12 +161,18 @@ export default function game() {
 
   let gameSpeed = 300;
 
-  k.loop(2, () => {
+k.loop(2, () => {
+  if (citySfx) {
     if (milesCovered > 5 && milesCovered < 20) {
-      citySfx.speed += 0.003
+      citySfx.speed += 0.003;
       gameSpeed += 60;
     }
-  });
+  } else {
+    if (milesCovered > 5 && milesCovered < 20) {
+      gameSpeed += 60;
+    }
+  }
+});
 
   // let miles = 31;
   // let milesCovered;
@@ -179,12 +185,20 @@ export default function game() {
         milesCovered = 30 - miles;
         k.setData("current-miles", milesCovered);
 
-        if (milesCovered === 5) {
-          citySfx.speed += 0.05;
-          gameSpeed += 200;
-        } else if (milesCovered === 20) {
-          citySfx.speed += 0.125;
-          gameSpeed += 300;
+        if (citySfx) {
+          if (milesCovered === 5) {
+            citySfx.speed += 0.05;
+            gameSpeed += 200;
+          } else if (milesCovered === 20) {
+            citySfx.speed += 0.125;
+            gameSpeed += 300;
+          }
+        } else {
+          if (milesCovered === 5) {
+            gameSpeed += 200;
+          } else if (milesCovered === 20) {
+            gameSpeed += 300;
+          }
         }
 
         if (milesCovered === 10 || milesCovered === 20 || milesCovered === 30) {

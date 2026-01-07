@@ -42,7 +42,9 @@ export default function cutscene() {
 
         if (count < 1) {
 
-            sceneMusic = k.play("sceneMusic", { volume: 2, loop: true });
+            if (k.isMute === false) {
+                sceneMusic = k.play("sceneMusic", { volume: 2, loop: true });
+            }
 
             k.play("sound1", { volume: 0.5 });
 
@@ -185,6 +187,9 @@ export default function cutscene() {
 
                         // Fade out music over 3 seconds
                         function fadeOutMusic(musicObj, duration = 3) {
+                            if (k.isMute === true) {
+                                return;
+                            }
                             const steps = 30;
                             const interval = duration / steps;
                             let currentStep = 0;
@@ -204,7 +209,9 @@ export default function cutscene() {
                         }
                         // After fade completes, go to the next scene
                         k.wait(3, () => {
-                            sceneMusic.paused = true;
+                            if (k.isMute === false) {
+                                sceneMusic.paused = true;
+                            }
                             k.go("game");
                         });
                     });

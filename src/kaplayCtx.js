@@ -21,7 +21,7 @@ const k = kaplay({
   },
   touchToMouse: true,
   debugKey: "d",
-  debug: true,
+  debug: false,
 });
 
 

@@ -5,8 +5,10 @@ export default function disclaimer() {
   k.add([
     k.text(
       `
-        The main title music is thanks to the wonderful work of @Eric Matyas
-        Follow 'https://soundimage.org/sample-page/' for more music and SFX
+        "Pixel Town Grand Prix" --> Main Game 
+        "The Happy Lush" --> Main Title
+        By --> Eric Matyas
+        Follow 'https://soundimage.org/' for more music and SFX
       `,
       { font: "brokecouch", size: 32 }
     ),
