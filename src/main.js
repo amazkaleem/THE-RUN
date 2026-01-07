@@ -5,10 +5,7 @@ import gameover from "./scenes/gameover";
 import mainMenu from "./scenes/mainMenu";
 import cutscene from "./scenes/cutscene";
 
-
-
 k.loadSprite("sceneSonic", "graphics/Still Obese.png");
-
 
 const dialogueKeys = [
   "dialogue1",
