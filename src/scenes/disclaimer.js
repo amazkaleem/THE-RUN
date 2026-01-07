@@ -1,6 +1,7 @@
 import k from "../kaplayCtx";
 
 export default function disclaimer() {
+  // console.log("The initial value of isMute before mainMenu is", k.isMute);
   k.add([
     k.text(
       `

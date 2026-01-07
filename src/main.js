@@ -10,14 +10,35 @@ import cutscene from "./scenes/cutscene";
 k.loadSprite("sceneSonic", "graphics/Still Obese.png");
 
 
-k.loadSprite("dialogue1", "graphics/Dialogue Box 01.png");
-k.loadSprite("dialogue2", "graphics/Dialogue Box 02.png");
-k.loadSprite("dialogue3", "graphics/Dialogue Box 03.png");
-k.loadSprite("dialogue4", "graphics/Dialogue Box 04.png");
-k.loadSprite("dialogue5", "graphics/Dialogue Box 05.png");
-k.loadSprite("dialogue6", "graphics/Dialogue Box 06.png");
-k.loadSprite("dialogue7", "graphics/Dialogue Box 07.png");
-k.loadSprite("dialogue8", "graphics/Dialogue Box 08.png");
+const dialogueKeys = [
+  "dialogue1",
+  "dialogue2",
+  "dialogue3",
+  "dialogue4",
+  "dialogue5",
+  "dialogue6",
+  "dialogue7",
+  "dialogue8",
+];
+
+const soundKeys = [
+  "sound1",
+  "sound2",
+  "sound3",
+  "sound4",
+  "sound5",
+  "sound6",
+  "sound7",
+  "sound8",
+];
+
+dialogueKeys.forEach((key, i) => {
+  k.loadSprite(key, `graphics/Dialogue Box 0${i + 1}.png`);
+});
+
+soundKeys.forEach((key, i) => {
+  k.loadSound(key, `sounds/dialogueSounds/dialogueSound0${i + 1}.wav`);
+});
 
 
 k.loadSprite("mainTitle", "graphics/Main Title.png");
@@ -37,6 +58,8 @@ k.loadSprite("sonic", "graphics/Obese Boy.png", {
 
 k.loadSprite("cheese", "graphics/Flying Cheese.png");
 k.loadSprite("Cheesecake", "graphics/Flying Cheese Cake.png");
+k.loadSprite("Instructor shocked!", "graphics/Instructor Shocked.png");
+k.loadSprite("Instructor angry!", "graphics/Instructor Angry.png");
 
 
 k.loadFont("mania", "fonts/mania.ttf");
@@ -51,7 +74,7 @@ k.loadSound("boo!", "sounds/BOO!.wav");
 k.loadSound("Nice Work!", "sounds/NICE WORK!.wav");
 k.loadSound("Wow!", "sounds/WOW!.mp3");
 k.loadSound("mainMusic", "sounds/The-Happy-Lush.mp3");
-k.loadSound("sceneMusic", "graphics/goldenGleam.mp3");
+k.loadSound("sceneMusic", "sounds/Golden Gleam.mp3");
 
 
 k.scene("disclaimer", disclaimer);

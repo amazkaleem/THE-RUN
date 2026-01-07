@@ -3,7 +3,11 @@ import { makeSonic } from "../entities/sonic";
 import { makeMotobug } from "../entities/motobug";
 
 export default function game() {
-  const citySfx = k.play("cuddle", { volume: 0.8, loop: true });
+  let citySfx = null;
+  // console.log("The value of isMute has been transferred over to game scene as", k.isMute);
+  if (k.isMute === false) {
+    citySfx = k.play("cuddle", { volume: 0.8, loop: true });
+  }
   k.setGravity(3100);
   const bgPieceWidth = 1920;
   const bgPieces = [
@@ -85,7 +89,7 @@ export default function game() {
     // Normal collision logic (when not invincible)
     if (!sonic.isGrounded() && sonic.pos.y < 680) {
       // Your jumping attack code
-      console.log(sonic.pos.y);
+      // console.log(sonic.pos.y);
       k.play("destroy", { volume: 0.5 });
       k.play("hyper-ring", { volume: 0.5 });
       k.destroy(enemy);
@@ -104,7 +108,7 @@ export default function game() {
     
     // Getting hit logic
     k.play("eat", { volume: 0.4 });
-    console.log("Player ate cheese at: ", sonic.pos.y);
+    // console.log("Player ate cheese at: ", sonic.pos.y);
     k.destroy(enemy);
     
     // Make sonic invincible and transparent
@@ -157,8 +161,11 @@ export default function game() {
 
   let gameSpeed = 300;
 
-  k.loop(1, () => {
-    gameSpeed += 30;
+  k.loop(2, () => {
+    if (milesCovered > 5 && milesCovered < 20) {
+      citySfx.speed += 0.003
+      gameSpeed += 60;
+    }
   });
 
   // let miles = 31;
@@ -172,10 +179,12 @@ export default function game() {
         milesCovered = 30 - miles;
         k.setData("current-miles", milesCovered);
 
-        if ( milesCovered === 10 || milesCovered === 15 ) {
-          citySfx.speed += 0.15;
+        if (milesCovered === 5) {
+          citySfx.speed += 0.05;
+          gameSpeed += 200;
         } else if (milesCovered === 20) {
-          citySfx.speed += 0.2;
+          citySfx.speed += 0.125;
+          gameSpeed += 300;
         }
 
         if (milesCovered === 10 || milesCovered === 20 || milesCovered === 30) {

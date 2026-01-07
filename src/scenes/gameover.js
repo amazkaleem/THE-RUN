@@ -1,8 +1,9 @@
 import k from "../kaplayCtx";
 
 export default function gameover(citySfx) {
-  citySfx.paused = true;
-
+  if (citySfx != null) {
+    citySfx.paused = true;
+  }
   const finalBack = k.add([
     k.sprite("finalBack"),
     k.pos(0, 0),
