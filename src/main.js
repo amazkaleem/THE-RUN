@@ -66,12 +66,9 @@ k.loadSound("destroy", "sounds/Destroy.wav");
 k.loadSound("eat", "sounds/Eating.wav");
 k.loadSound("hyper-ring", "sounds/HyperRing.wav");
 k.loadSound("jump", "sounds/Jump.wav");
-k.loadSound("cuddle", "sounds/PixelTown.mp3");
 k.loadSound("boo!", "sounds/BOO!.wav");
 k.loadSound("Nice Work!", "sounds/NICE WORK!.wav");
 k.loadSound("Wow!", "sounds/WOW!.mp3");
-k.loadSound("mainMusic", "sounds/The-Happy-Lush.mp3");
-k.loadSound("sceneMusic", "sounds/Golden Gleam.mp3");
 
 
 k.scene("disclaimer", disclaimer);

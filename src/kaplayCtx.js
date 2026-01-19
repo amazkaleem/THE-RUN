@@ -6,7 +6,6 @@ const k = kaplay({
   letterbox: true,
   background: [0, 0, 0],
   global: false,
-  isMute: false,
   buttons: {
     jump: {
       keyboard: ["space"],
@@ -15,15 +14,10 @@ const k = kaplay({
     skip:{
       keyboard: ["s"],
     },
-    mute:{
-      keyboard: ["m"],
-    }
   },
   touchToMouse: true,
   debugKey: "d",
   debug: false,
 });
 
-
-k.isMute = false; //isMute is NOT a built-in property of the kaplay() and so initialize it after creating kaplay() object and also within its definition to use it!
 export default k;
