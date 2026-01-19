@@ -3,11 +3,6 @@ import { makeSonic } from "../entities/sonic";
 import { makeMotobug } from "../entities/motobug";
 
 export default function game() {
-  let citySfx;
-  // console.log("The value of isMute has been transferred over to game scene as", k.isMute);
-  if (k.isMute === false) {
-    citySfx = k.play("cuddle", { volume: 0.8, loop: true });
-  }
   k.setGravity(3100);
   const bgPieceWidth = 1920;
   const bgPieces = [
@@ -162,15 +157,8 @@ export default function game() {
   let gameSpeed = 300;
 
 k.loop(2, () => {
-  if (citySfx) {
-    if (milesCovered > 5 && milesCovered < 20) {
-      citySfx.speed += 0.003;
-      gameSpeed += 60;
-    }
-  } else {
-    if (milesCovered > 5 && milesCovered < 20) {
-      gameSpeed += 60;
-    }
+  if (milesCovered > 5 && milesCovered < 20) {
+    gameSpeed += 60;
   }
 });
 
@@ -185,20 +173,10 @@ k.loop(2, () => {
         milesCovered = 30 - miles;
         k.setData("current-miles", milesCovered);
 
-        if (citySfx) {
-          if (milesCovered === 5) {
-            citySfx.speed += 0.05;
-            gameSpeed += 200;
-          } else if (milesCovered === 20) {
-            citySfx.speed += 0.125;
-            gameSpeed += 300;
-          }
-        } else {
-          if (milesCovered === 5) {
-            gameSpeed += 200;
-          } else if (milesCovered === 20) {
-            gameSpeed += 300;
-          }
+        if (milesCovered === 5) {
+          gameSpeed += 200;
+        } else if (milesCovered === 20) {
+          gameSpeed += 300;
         }
 
         if (milesCovered === 10 || milesCovered === 20 || milesCovered === 30) {
@@ -243,7 +221,7 @@ k.loop(2, () => {
 k.onUpdate(() => {
   if (sonic.isGrounded()) scoreMultiplier = 0;
 
-  if (miles == 0) k.go("gameover", citySfx);
+  if (miles == 0) k.go("gameover");
   
   if (sonic.fatCounter === 2) {
     bmiText.text = `BMI LEVEL: FAT`;
@@ -258,7 +236,7 @@ k.onUpdate(() => {
     bmiText.color = k.rgb(34, 139, 34);
     k.setData("current-bmi", sonic.fatCounter);
   } else if(sonic.fatCounter === 0) {
-    k.go("gameover", citySfx);
+    k.go("gameover");
   }
 
   

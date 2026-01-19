@@ -29,7 +29,6 @@ export default function cutscene() {
         { z: 1000 }, // ensure it's on top
     ]);
 
-    let sceneMusic;
     let count = 0;
     let newDialogue;
     let instructor;
@@ -42,11 +41,7 @@ export default function cutscene() {
 
         if (count < 1) {
 
-            if (k.isMute === false) {
-                sceneMusic = k.play("sceneMusic", { volume: 2, loop: true });
-            }
-
-            k.play("sound1", { volume: 0.5 });
+            k.play("sound1", { volume: 0.25 });
 
             k.shake(20);
 
@@ -185,33 +180,8 @@ export default function cutscene() {
                             (value) => fade.opacity = value
                         );
 
-                        // Fade out music over 3 seconds
-                        function fadeOutMusic(musicObj, duration = 3) {
-                            if (k.isMute === true) {
-                                return;
-                            }
-                            const steps = 30;
-                            const interval = duration / steps;
-                            let currentStep = 0;
-                            const initialVolume = musicObj.volume;
-
-                            function step() {
-                                currentStep++;
-                                const newVolume = initialVolume * (1 - currentStep / steps);
-                                musicObj.volume = Math.max(0, newVolume);
-                                if (currentStep < steps) {
-                                    k.wait(interval, step);
-                                } else {
-                                    musicObj.paused = true; // or musicObj.stop();
-                                }
-                            }
-                            step();
-                        }
                         // After fade completes, go to the next scene
                         k.wait(3, () => {
-                            if (k.isMute === false) {
-                                sceneMusic.paused = true;
-                            }
                             k.go("game");
                         });
                     });
