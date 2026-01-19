@@ -36,13 +36,11 @@ export default function cutscene() {
     
     k.onButtonPress("jump", () => {
         
-        k.play("sound1", { volume: 0.25 });
         k.destroy(op1);
         k.destroy(op2);
-
+        
         if (count < 1) {
-
-
+            k.play("sound1", { volume: 0.25 });
             k.shake(20);
 
             console.log(k.center());
