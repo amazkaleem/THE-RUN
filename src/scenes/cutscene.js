@@ -7,7 +7,7 @@ export default function cutscene() {
         k.sprite("finalBack"),
         k.pos(0, 0),
     ]);
-
+    
     const op1 = k.add([
         k.text("Press Space/Click/Touch to Play Cutscene", { font: "brokecouch", size: 64 }),
         k.anchor("center"),
@@ -28,20 +28,20 @@ export default function cutscene() {
         k.opacity(0),
         { z: 1000 }, // ensure it's on top
     ]);
-
+    
     let count = 0;
     let newDialogue;
     let instructor;
     let sonic;
-
+    
     k.onButtonPress("jump", () => {
-
+        
+        k.play("sound1", { volume: 0.25 });
         k.destroy(op1);
         k.destroy(op2);
 
         if (count < 1) {
 
-            k.play("sound1", { volume: 0.25 });
 
             k.shake(20);
 
